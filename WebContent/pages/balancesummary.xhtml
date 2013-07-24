@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="mainlayout.xhtml">
+		<ui:define name="content">
+			<p:blockUI block="listpanelgroup" trigger="listbtn">
+				<h:outputText value="LOADING" />
+				<h:graphicImage value="../resources/images/ajax-loading.gif" />
+			</p:blockUI>
+			<p:panel header="รายงานสรุปยอดคงเหลือ"
+				style="font-size:100% !important">
+				<p:fieldset legend="รายการสรุปยอดคงเหลือ" toggleable="true"
+					style="font-size:100% !important">
+					<h:panelGrid columns="6" cellpadding="3" id="searchgrid">
+						<h:outputText value="แสดงรายการระหว่างวันที่:" />
+						<p:calendar value="#{balance.fromDate}" pattern="d/M/yyyy"
+							navigator="true" />
+						<h:outputText value="ถึง" />
+						<p:calendar value="#{balance.toDate}" pattern="d/M/yyyy"
+							navigator="true" />
+						<p:commandButton value="ตกลง" icon="ui-icon-check"
+							action="#{balance.createMemberList()}"
+							update="memberlist, searchgrid" id="listbtn" />
+						<h:commandLink target="_blank" action="#{balance.printReport()}"
+							title="พิมพ์รายงาน"
+							rendered="#{fn:length(balance.memberList) != 0}"
+							style="margin-left:20px">
+							<h:graphicImage value="/resources/images/pdf.png" />
+						</h:commandLink>
+					</h:panelGrid>
+					<p:spacer height="10" />
+					<h:panelGroup style="float:left;width:100%" id="listpanelgroup">
+						<p:dataTable value="#{balance.memberList}" var="member"
+							paginator="true" paginatorAlwaysVisible="false"
+							paginatorPosition="bottom" rows="5" id="memberlist">
+							<f:facet name="header">
+								<h:outputText value="ตารางแสดงรายการสรุปยอดคงเหลือ" />
+							</f:facet>
+							<f:facet name="footer">
+								<div style="text-align: right">
+									<h:outputText
+										value="ค้นพบ #{fn:length(balance.memberList)} รายการ" />
+									<br />
+									<h:outputText
+										value="จำนวนเงินรวมทั้งหมด  #{balance.sumTotalBalance}">
+										<f:convertNumber pattern="#,##0.00" />
+									</h:outputText>
+								</div>
+							</f:facet>
+							<p:columnGroup type="header">
+								<p:row>
+									<p:column headerText="วันที่เกิดรายการ" style="width:10%" />
+									<p:column headerText="ประเภทรายการ" style="width:10%" />
+									<p:column headerText="จำนวนเงิน" style="width:10%" />
+									<p:column headerText="จำนวนเงินคงเหลือ" style="width:10%" />
+									<p:column headerText="จ่ายให้สมาชิก" style="width:50%" />
+									<p:column headerText="เลขที่สมาชิก" style="width:10%" />
+								</p:row>
+							</p:columnGroup>
+							<p:subTable value="#{member.payments}" var="payment">
+								<f:facet name="header">
+									<h:outputText value="สมาชิกเลขที่: #{member.memberNumber} " />
+									<br />
+									<h:outputText value="ชื่อ - นามสกุล: #{member.name}" />
+								</f:facet>
+								<p:column style="text-align:right">
+									<h:outputText value="#{payment.transactionDate}">
+										<f:convertDateTime pattern="d/M/yyyy" timeZone="GMT+7" />
+									</h:outputText>
+								</p:column>
+								<p:column>
+									<h:outputText value="#{payment.transactionType}" />
+								</p:column>
+								<p:column style="text-align:right">
+									<h:outputText value="#{payment.transactionAmount}">
+										<f:convertNumber pattern="#,##0.00" />
+									</h:outputText>
+								</p:column>
+								<p:column
+									style="text-align:right;#{payment.availableAmount lt 0 ? 'color:red':'color:green'}">
+									<h:outputText value="#{payment.availableAmount}">
+										<f:convertNumber pattern="#,##0.00" />
+									</h:outputText>
+								</p:column>
+								<p:column>
+									<h:outputText value="#{payment.paidForMember.name	}" />
+								</p:column>
+								<p:column style="text-align:right">
+									<h:outputText value="#{payment.paidForMember.memberNumber}" />
+								</p:column>
+								<p:columnGroup type="footer">
+									<p:row>
+										<p:column colspan="6" style="text-align:right">
+											<f:facet name="footer">
+												<h:outputText value="จำนวนเงินคงเหลือ: " />
+												<h:outputText value="#{member.payments.get(fn:length(member.payments)-1).availableAmount}"
+													style="#{member.payments.get(fn:length(member.payments)-1).availableAmount lt 0 ? 'color:orangered':'color:limegreen'}" />
+											</f:facet>
+										</p:column>
+									</p:row>
+								</p:columnGroup>
+							</p:subTable>
+						</p:dataTable>
+					</h:panelGroup>
+				</p:fieldset>
+			</p:panel>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

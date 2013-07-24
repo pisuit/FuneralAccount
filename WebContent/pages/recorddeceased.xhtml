@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="mainlayout.xhtml">
+		<ui:define name="content">
+			<p:blockUI block="memberlistpanelgroup" widgetVar="blockMemberList">
+				<h:outputText value="LOADING" />
+				<h:graphicImage value="../resources/images/ajax-loading.gif" />
+			</p:blockUI>
+			<p:blockUI block="fieldset" trigger="calculatebtn">
+				<h:outputText value="LOADING" />
+				<h:graphicImage value="../resources/images/ajax-loading.gif" />
+			</p:blockUI>
+			<p:panel header="คำนวณเงินสงเคราะห์"
+				style="font-size:100% !important">
+				<p:fieldset toggleable="true" legend="รายการผู้เสียชีวิต"
+					style="font-size:100% !important" id="fieldset">
+					<h:panelGroup style="float:left;width:100%">
+						<div style="width: 49%; float: left">
+							<h:panelGrid columns="5" cellpadding="4">
+								<h:outputText value="แสดงรายการระหว่างวันที่:" />
+								<p:calendar value="#{decease.fromDate}" pattern="d/M/yyyy"
+									navigator="true">
+									<p:ajax event="dateSelect"
+										listener="#{decease.createDeadMemberList()}"
+										update="deadmemberlist, calculatebtn" onstart="blockMemberList.show()"
+										oncomplete="blockMemberList.hide()" />
+								</p:calendar>
+								<h:outputText value="ถึง" />
+								<p:calendar value="#{decease.toDate}" pattern="d/M/yyyy"
+									navigator="true">
+									<p:ajax event="dateSelect"
+										listener="#{decease.createDeadMemberList()}"
+										update="deadmemberlist, calculatebtn" onstart="blockMemberList.show()"
+										oncomplete="blockMemberList.hide()" />
+								</p:calendar>									
+							</h:panelGrid>
+						</div>
+						<div style="width: 49%; text-align: right; float: left">
+							<p:commandButton value="คำนวณ" icon="ui-icon-calculator"
+								action="#{decease.calculate}" id="calculatebtn" update="deadmemberlist" disabled="#{fn:length(decease.deadMemberList) == 0}"/>
+						</div>
+					</h:panelGroup>
+					<p:spacer height="10" />
+					<h:panelGroup style="float:left;width:100%"
+						id="memberlistpanelgroup">
+						<p:dataTable id="deadmemberlist" value="#{decease.deadMemberList}"
+							var="mem" paginator="true" paginatorAlwaysVisible="false"
+							paginatorPosition="bottom" rows="20">
+							<f:facet name="header">
+								<h:outputText value="ตารางแสดงรายการผู้เสียชีวิต" />
+							</f:facet>
+							<f:facet name="footer">
+								<div style="text-align: right">
+									<h:outputText
+										value="ค้นพบ #{fn:length(decease.deadMemberList)} รายการ" />
+								</div>
+							</f:facet>
+							<p:column headerText="เลขที่สมาชิก" style="width:10%">
+								<div style="text-align: right">
+									<h:outputText value="#{mem.memberNumber}" />
+								</div>
+							</p:column>
+							<p:column headerText="ชื่อ - นามสกุล" style="width:20%">
+								<h:outputText value="#{mem.name}" />
+							</p:column>
+							<p:column headerText="วันที่เสียชีวิต" style="width:10%">
+								<div style="text-align: right">
+									<h:outputText value="#{mem.resignDate}">
+										<f:convertDateTime pattern="d/M/yyyy" timeZone="GMT+7" />
+									</h:outputText>
+								</div>
+							</p:column>
+							<p:column headerText="วันที่ยื่นเรื่อง" style="width:10%">
+								<div style="text-align: right">
+									<h:outputText value="#{mem.deceaseReportDate}">
+										<f:convertDateTime pattern="d/M/yyyy" timeZone="GMT+7" />
+									</h:outputText>
+								</div>
+							</p:column>
+							<p:column headerText="เงินสงเคราะห์ที่ได้รับ" style="width:10%">
+								<div style="text-align: right">
+									<h:outputText value="#{mem.receivedAmount}" style="color:blue">
+										<f:convertNumber pattern="#,##0.00" />
+									</h:outputText>
+								</div>
+							</p:column>
+							<p:column headerText="เงินสงเคราะห์จากผู้เกษียณอายุ"
+								style="width:10%">
+								<div style="text-align: right">
+									<h:outputText value="#{mem.balance.receivedAmount}" rendered="#{mem.balance != null}" style="color:gray">
+										<f:convertNumber pattern="#,##0.00" />
+									</h:outputText>
+									<h:outputText value="0.00" rendered="#{mem.balance == null}" style="color:gray"/>
+								</div>
+							</p:column>
+							<p:column headerText="จำนวนเงินที่ได้รับทันที" style="width:10%">
+								<div style="text-align: right">
+									<h:outputText value="#{mem.totalAmount}" style="color:green">
+										<f:convertNumber pattern="#,##0.00" />
+									</h:outputText>
+								</div>
+							</p:column>
+							<p:column headerText="เงินสงคราะห์ที่ยังค้างจ่าย"
+								style="width:10%">
+								<div style="text-align: right">
+									<h:outputText value="#{mem.balance.debtAmount}" rendered="#{mem.balance != null}" style="color:red">
+										<f:convertNumber pattern="#,##0.00" />
+									</h:outputText>
+									<h:outputText value="0.00" rendered="#{mem.balance == null}" style="color:red"/>
+								</div>
+							</p:column>
+							<p:column headerText="จำนวนเงินสุทธิ"
+								style="width:10%">
+								<div style="text-align: right">
+									<h:outputText value="#{mem.grandSum}" style="color:orange">
+										<f:convertNumber pattern="#,##0.00" />
+									</h:outputText>
+								</div>
+							</p:column>
+						</p:dataTable>		
+						<h:outputText value="*หมายเหตุ*" />
+						<br/>
+						<h:panelGrid columns="5">
+						<h:outputText value="เงินสงเคราะห์ที่ได้รับ" style="color:blue"/>
+						<h:outputText value=" + " />
+						<h:outputText value="เงินสงเคราะห์จากผู้เกษียณอายุ" style="color:gray"/>
+						<h:outputText value=" = " />
+						<h:outputText value="จำนวนเงินที่ได้รับทันที" style="color:green"/>
+						<h:outputText value="จำนวนเงินที่ได้รับทันที" style="color:green"/>
+						<h:outputText value=" + " />
+						<h:outputText value="เงินสงคราะห์ที่ยังค้างจ่าย" style="color:red"/>
+						<h:outputText value=" = " />
+						<h:outputText value="จำนวนเงินสุทธิ" style="color:orange"/>
+						</h:panelGrid>		
+					</h:panelGroup>				
+				</p:fieldset>
+			</p:panel>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

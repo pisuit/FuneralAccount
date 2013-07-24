@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:head>
+
+</h:head>
+<body>
+	<ui:composition template="mainlayout.xhtml">
+		<ui:define name="content">
+			<p:blockUI block="debtlistpanelgroup" widgetVar="blockDebtList">
+				<h:outputText value="LOADING" />
+				<br />
+				<h:graphicImage value="../resources/images/ajax-loading.gif" />
+			</p:blockUI>
+			<p:blockUI block="warningpanelgroup" widgetVar="blockWarnGrid">
+				<h:outputText value="LOADING" />
+				<br />
+				<h:graphicImage value="../resources/images/ajax-loading.gif" />
+			</p:blockUI>
+			<p:blockUI block="warningpanelgroup" trigger="savebtn">
+				<h:outputText value="LOADING" />
+				<br />
+				<h:graphicImage value="../resources/images/ajax-loading.gif" />
+			</p:blockUI>
+			<p:panel header="จดหมายแจ้งเตือน" style="font-size:100% !important">
+				<p:fieldset legend="รายการสมาชิกค้างชำระ" toggleable="true"
+					style="font-size:100% !important">
+					<p:panelGrid style="width:100%;" styleClass="verticaltop">
+						<p:row>
+							<p:column style="width:60%">
+								<p:dataTable value="#{warning.debtMemberList}" var="member"
+									rows="10" paginator="true" paginatorAlwaysVisible="false"
+									paginatorPosition="bottom" selectionMode="single"
+									selection="#{warning.selectedMember}" rowKey="#{member.ID}"
+									id="debtmemberlist">
+									<p:ajax event="rowSelect"
+										listener="#{warning.createDebtList()}"
+										update=":centerform:debtlist, :centerform:warninggrid"
+										onstart="blockDebtList.show();blockWarnGrid.show()"
+										oncomplete="blockDebtList.hide();blockWarnGrid.hide()" />
+									<f:facet name="header">
+										<h:outputText value="ตารางแสดงรายการสมาชิก" />
+									</f:facet>
+									<f:facet name="footer">
+										<div style="text-align: right">
+											<h:outputText
+												value="ค้นพบ #{fn:length(warning.debtMemberList)} รายการ" />
+										</div>
+									</f:facet>
+									<p:columnGroup type="header">
+										<p:row>
+											<p:column headerText="เลขที่สมาชิก" style="width:10%" />
+											<p:column headerText="ชื่อ - นามสกุล" style="width:40%" />
+											<p:column headerText="ยอดค้างชำระ" style="width:15%" />
+											<p:column headerText="ยอดคงเหลือ" style="width:15%" />
+											<p:column headerText="จำนวนการแจ้งเตือน" style="width:10%" />
+											<p:column headerText="วันที่แจ้งเตือนล่าสุด"
+												style="width:10%" />
+										</p:row>
+									</p:columnGroup>
+									<p:column style="text-align: right">
+										<h:outputText value="#{member.memberNumber}" />
+									</p:column>
+									<p:column>
+										<h:outputText value="#{member.name}" />
+									</p:column>
+									<p:column style="text-align: right">
+										<h:outputText
+											value="#{member.balance.currentBalance > 0 ? '0.00':member.balance.currentBalance.multiply(-1)}">
+											<f:convertNumber pattern="#,##0.00" />
+										</h:outputText>
+									</p:column>
+									<p:column style="text-align: right">
+										<h:outputText value="#{member.balance.currentBalance}"
+											style="color: #{member.balance.currentBalance lt 0 ? 'red':'green' }">
+											<f:convertNumber pattern="#,##0.00" />
+										</h:outputText>
+									</p:column>
+									<p:column style="text-align: right">
+										<h:outputText
+											value="#{member.warning == null ? '0':member.warning.warningCount}" />
+									</p:column>
+									<p:column style="text-align:right">
+										<h:outputText value="#{member.warning.warnDate1}"
+											rendered="#{member.warning != null and member.warning.warnDate1 != null and member.warning.warnDate2 == null and member.warning.warnDate3 == null}">
+											<f:convertDateTime pattern="d/M/yyyy" timeZone="GMT+7" />
+										</h:outputText>
+										<h:outputText value="#{member.warning.warnDate2}"
+											rendered="#{member.warning != null and member.warning.warnDate1 != null and member.warning.warnDate2 != null and member.warning.warnDate3 == null}">
+											<f:convertDateTime pattern="d/M/yyyy" timeZone="GMT+7" />
+										</h:outputText>
+										<h:outputText value="#{member.warning.warnDate1}"
+											rendered="#{member.warning != null and member.warning.warnDate1 != null and member.warning.warnDate2 != null and member.warning.warnDate3 != null}">
+											<f:convertDateTime pattern="d/M/yyyy" timeZone="GMT+7" />
+										</h:outputText>
+									</p:column>
+								</p:dataTable>
+							</p:column>
+							<p:column style="width:40%">
+								<h:panelGroup style="float:left;width:100%"
+									id="debtlistpanelgroup">
+									<p:dataTable value="#{warning.debtList}" var="debt" rows="10"
+										paginator="true" paginatorAlwaysVisible="false"
+										paginatorPosition="bottom" id="debtlist">
+										<f:facet name="header">
+											<h:outputText value="ตารางแสดงรายการค้างชำระ" />
+										</f:facet>
+										<f:facet name="footer">
+											<div style="text-align: right">
+												<h:outputText
+													value="ค้นพบ #{fn:length(warning.debtList)} รายการ" />
+											</div>
+										</f:facet>
+										<p:column headerText="เลขที่สมาชิก" style="width:10%">
+											<div style="text-align: right">
+												<h:outputText value="#{debt.paidForMember.memberNumber}" />
+											</div>
+										</p:column>
+										<p:column headerText="ชื่อ - นามสกุล" style="width:50%">
+											<h:outputText value="#{debt.paidForMember.name}" />
+										</p:column>
+										<p:column headerText="วันที่" style="width:20%">
+											<div style="text-align: right">
+												<h:outputText value="#{debt.transactionDate}">
+													<f:convertDateTime pattern="d/M/yyyy" timeZone="GMT+7" />
+												</h:outputText>
+											</div>
+										</p:column>
+										<p:column headerText="จำนวนเงิน" style="width:20%">
+											<div style="text-align: right">
+												<h:outputText value="#{debt.debtAmount}">
+													<f:convertNumber pattern="#,##0.00" />
+												</h:outputText>
+											</div>
+										</p:column>
+									</p:dataTable>
+								</h:panelGroup>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</p:fieldset>
+				<p:spacer height="20" />
+				<p:fieldset legend="จัดการข้อมูล" toggleable="true"
+					style="font-size:100% !important">
+					<h:panelGroup style="float:left;width:100%" id="warningpanelgroup">
+						<h:panelGrid columns="6" cellpadding="3" id="warninggrid">
+							<h:outputText value="ออกจดหมายแจ้งเตือนครั้งที่:" />
+							<p:inputText value="#{warning.nextCount}" style="width:20px"
+								disabled="#{warning.selectedMember == null or warning.nextCount == 4}" />
+							<h:outputText value="วันที่:" />
+							<p:calendar value="#{warning.warnDate}" pattern="d/M/yyyy"
+								navigator="true"
+								disabled="#{warning.selectedMember == null or warning.nextCount == 4}" />
+							<p:commandButton value="ตกลง" icon="ui-icon-mail-closed"
+								action="#{warning.saveWarning()}"
+								disabled="#{warning.selectedMember == null or warning.nextCount == 4}"
+								id="savebtn" update="debtlist, debtmemberlist, warninggrid" />
+							<p:commandButton value="สิ้นสุดการเป็นสมาชิกภาพ"
+								icon="ui-icon-circle-close" rendered="#{warning.nextCount == 4}" process="@this" action="#{warning.showDialog()}"/>
+						</h:panelGrid>
+					</h:panelGroup>
+				</p:fieldset>
+			</p:panel>
+			<p:confirmDialog
+				message="ยืนยันการเปลี่ยนแปลงสถานะสิ้นสุดการเป็นสมาชิกภาพ ?"
+				header="ข้อความยืนยัน" severity="alert" widgetVar="confirmDialog" id="confirmdialog">
+				<p:commandButton id="confirm" widgetVar="confirmButton" value="ตกลง" update="warninggrid, debtlist, debtmemberlist" action="#{warning.firedMember()}"
+					oncomplete="confirmButton.enable(),cancelButton.enable(),confirmDialog.hide()" onstart="confirmButton.disable(),cancelButton.disable()"/>
+				<p:commandButton id="decline" value="ยกเลิก" widgetVar="cancelButton"
+					onclick="confirmDialog.hide()" type="button" />
+			</p:confirmDialog>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

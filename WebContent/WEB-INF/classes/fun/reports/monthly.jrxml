@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="monthly" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6ef5606d-67c6-49b6-96a2-dc74a4509602">
+	<property name="ireport.zoom" value="1.7715610000000097"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="23"/>
+	<parameter name="docNumber" class="java.lang.String"/>
+	<parameter name="printDate" class="java.lang.String"/>
+	<parameter name="deadNumber" class="java.lang.String"/>
+	<parameter name="sumPaidAmount" class="java.lang.String"/>
+	<parameter name="memberAmount" class="java.lang.String"/>
+	<parameter name="printMonth" class="java.lang.String"/>
+	<parameter name="sign" class="java.lang.Object"/>
+	<parameter name="selectedMonth" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="number" class="java.lang.String"/>
+	<field name="deadName" class="java.lang.String"/>
+	<field name="deadInfo" class="java.lang.String"/>
+	<field name="deadDate" class="java.lang.String"/>
+	<field name="currentBalance" class="java.lang.String"/>
+	<field name="mainMemberName" class="java.lang.String"/>
+	<group name="group1" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{number}]]></groupExpression>
+		<groupHeader>
+			<band height="150">
+				<staticText>
+					<reportElement uuid="06cc606d-2434-4711-a43d-c553b00c69bc" x="55" y="90" width="273" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[การฌาปนกิจสงเคราะห์ฯ ขอแจ้งจำนวนสมาชิกจนถึงวันที่ ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="06cc606d-2434-4711-a43d-c553b00c69bc" x="20" y="0" width="76" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" isUnderline="true" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[กองสวัสดิการ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="06cc606d-2434-4711-a43d-c553b00c69bc" x="468" y="110" width="61" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[ราย คือ]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="001a8869-8fb8-41bd-b2e5-9c41d53cdfbf" x="20" y="20" width="171" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" isUnderline="true" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{docNumber}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="06cc606d-2434-4711-a43d-c553b00c69bc" x="65" y="110" width="22" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[คน]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="001a8869-8fb8-41bd-b2e5-9c41d53cdfbf" x="328" y="90" width="115" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{printDate}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="001a8869-8fb8-41bd-b2e5-9c41d53cdfbf" x="448" y="110" width="20" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{deadNumber}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="6f4bfe4a-3eb2-425a-9ada-3c908b25c603" x="20" y="50" width="28" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[เรื่อง]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="001a8869-8fb8-41bd-b2e5-9c41d53cdfbf" x="390" y="20" width="128" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{printDate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="299846aa-82cd-416a-ae68-da0c12a10687" x="20" y="70" width="28" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[เรียน]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="001a8869-8fb8-41bd-b2e5-9c41d53cdfbf" x="20" y="110" width="45" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{memberAmount}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="001a8869-8fb8-41bd-b2e5-9c41d53cdfbf" x="55" y="70" width="272" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="06cc606d-2434-4711-a43d-c553b00c69bc" x="443" y="90" width="85" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[มีสมาชิกทั้งสิ้น]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="06cc606d-2434-4711-a43d-c553b00c69bc" x="201" y="110" width="247" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[ได้จ่ายเงินสงเคราะห์ให้กับสมาชิกที่เสียชีวิต จำนวน]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="55" y="50" width="272" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[ขอแจ้งรายชื่อสมาชิกการฌาปนกิจสงเคราะห์ บวท. ผู้ถึงแก่กรรม]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="06cc606d-2434-4711-a43d-c553b00c69bc" x="87" y="110" width="59" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[และในเดือน]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="001a8869-8fb8-41bd-b2e5-9c41d53cdfbf" x="146" y="110" width="55" height="20"/>
+					<textElement textAlignment="Left">
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{selectedMonth}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="300">
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="55" y="20" width="180" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[รวมเป็นเงินค่าสงเคราะห์ศพทั้งสิ้น]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+					<reportElement uuid="001a8869-8fb8-41bd-b2e5-9c41d53cdfbf" x="235" y="20" width="40" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Tahoma" size="12" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{sumPaidAmount}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="275" y="20" width="35" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[บาท]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="55" y="40" width="483" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[เนื่องจาก ท่านได้จ่ายเงินค่าสงเคราะห์ศพล่วงหน้าไว้แล้วจำนวนหนึ่ง ซึ่งเมื่อหักค่าสงเคราะห์ศพ]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="001a8869-8fb8-41bd-b2e5-9c41d53cdfbf" x="67" y="60" width="58" height="20"/>
+					<textElement textAlignment="Left">
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{selectedMonth}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="125" y="60" width="120" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[ท่านยังมีเงินคงเหลืออยู่จำนวน]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="">
+					<reportElement uuid="001a8869-8fb8-41bd-b2e5-9c41d53cdfbf" x="245" y="60" width="48" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{currentBalance}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="294" y="60" width="261" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[หากท่านมีความประสงค์จะจ่ายเงินสงเคราะห์ไว้]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="65" y="80" width="482" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[ขอให้ท่านส่งเงินเป็นไปรษณีย์ธนาณัติ มายัง ป.ณ.สวนพลู ๑๐๑๒๑ สั่งจ่าย น.ส.จิตรารัตน์ รัตนวงศ์ ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="20" y="100" width="522" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[และกรุณาจ่าหน้าซองถึง บริษัท วิทยุการบินฯ เลขที่ ๑๐๒ ซ.งามดูพลี แขวงทุ่งมหาเมฆ เขตสาทร กทม.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="20" y="120" width="47" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[๑๐๑๒๐ ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="20" y="60" width="47" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[ของเดือน]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="20" y="80" width="45" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[ล่วงหน้า]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="67" y="120" width="351" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[สอบถาม โทร ๐-๒๒๘๕-๙๒๘๒]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="50" y="156" width="141" height="20"/>
+					<textElement>
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[จึงเรียนมาเพื่อโปรดทราบ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="338" y="206" width="120" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[ขอแสดงความนับถือ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="339" y="258" width="118" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[นายมาโนช สวัสดี]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7931f689-d1ae-4a95-97f2-77fb4ea74345" x="325" y="278" width="146" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[ผู้อำนวยการกองสวัสดิการ]]></text>
+				</staticText>
+				<image>
+					<reportElement uuid="326a14dd-696e-4dcb-bd89-336855233c74" x="357" y="227" width="79" height="27"/>
+					<imageExpression><![CDATA[$P{sign}]]></imageExpression>
+				</image>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b67f1e6e-0b3e-43e4-a31a-90a9c51bff69" x="146" y="17" width="262" height="22"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="12" isUnderline="true" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[บริษัท วิทยุการบินแห่งประเทศไทย จำกัด]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement uuid="001a8869-8fb8-41bd-b2e5-9c41d53cdfbf" x="20" y="0" width="250" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deadName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="001a8869-8fb8-41bd-b2e5-9c41d53cdfbf" x="20" y="20" width="250" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deadDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="001a8869-8fb8-41bd-b2e5-9c41d53cdfbf" x="270" y="0" width="285" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deadInfo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="001a8869-8fb8-41bd-b2e5-9c41d53cdfbf" x="270" y="20" width="285" height="20"/>
+				<textElement>
+					<font fontName="Tahoma" size="12" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mainMemberName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

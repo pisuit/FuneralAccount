@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+<!--     	<property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property> -->
+<!-- 		<property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:xe</property> -->
+<!-- 		<property name="hibernate.connection.username">funuser</property> -->
+<!-- 		<property name="hibernate.connection.password">oracle</property> -->
+<!-- 		<property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property> -->
+<!-- 		<property name="hibernate.show_sql">true</property> -->
+
+<!-- 		<property name="hibernate.connection.driver_class">com.sybase.jdbc3.jdbc.SybDriver</property> -->
+<!-- 		<property name="hibernate.connection.url">jdbc:sybase:Tds:129.200.9.12:4000/onlinedb2</property> -->
+<!-- 		<property name="hibernate.connection.username">sa</property> -->
+<!-- 		<property name="hibernate.connection.password">-hv,^]</property> -->
+<!-- 		<property name="hibernate.connection.pool_size">10</property> -->
+<!-- 		<property name="dialect">org.hibernate.dialect.SQLAnywhere11Dialect</property> -->
+
+<!-- Database connection settings -->
+		<property name="hibernate.session_factory_name">java:/hibernate/session_factory</property>
+		<property name="hibernate.connection.datasource">java:jdbc/SybaseDB/production/onlinedb</property>
+		<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JTATransactionFactory</property>
+		<property name="jta.UserTransaction">UserTransaction</property>
+		<property name="hibernate.transaction.manager_lookup_class">org.hibernate.transaction.JBossTransactionManagerLookup</property>
+		<property name="connection.charSet">tis620</property>
+
+<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.SybaseDialect</property>
+
+		
+		<mapping class="fun.model.Beneficiary"/>
+		<mapping class="fun.model.Employee"/>
+		<mapping class="fun.model.Member"/>
+		<mapping class="fun.model.NamePrefix"/>
+		<mapping class="fun.model.Payment"/>
+		<mapping class="fun.model.PayrollPayment"/>
+		<mapping class="fun.model.RetirementPayment"/>
+		<mapping class="fun.model.Debt"/>
+		<mapping class="fun.model.CurrentBalance"/>
+		<mapping class="fun.model.Warning"/>
+		<mapping class="fun.model.User"/>
+		<mapping class="fun.model.Authorization"/>
+    </session-factory>
+</hibernate-configuration>

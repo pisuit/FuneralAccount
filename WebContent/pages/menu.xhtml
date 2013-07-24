@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+<body>
+	<p:menubar style="font-size:100% !important">
+		<p:submenu label="ผู้เกษียณอายุ" icon="ui-icon-contact" rendered="#{menu.retire}">
+			<p:menuitem value="ข้อมูลผู้เกษียณอายุ" icon="ui-icon-pencil"
+				action="retire?faces-redirect=true" rendered="#{menu.retire}"/>
+		</p:submenu>
+		<p:submenu label="ผู้เสียชีวิต" icon="ui-icon-contact" rendered="#{menu.calculate}">
+			<p:menuitem value="คำนวณเงินสงเคราะห์" icon="ui-icon-calculator"
+				action="recorddeceased?faces-redirect=true" rendered="#{menu.calculate}"/>
+		</p:submenu>
+		<p:submenu label="จดหมายและรายงาน" icon="ui-icon-mail-closed" rendered="#{menu.warnLetter || menu.balanceReport || menu.monthlyReport}">
+			<p:menuitem value="จดหมายแจ้งเตือน" icon="ui-icon-alert"
+				action="warnletter?faces-redirect=true" rendered="#{menu.warnLetter}"/>
+			<p:menuitem value="รายงานสรุปยอดคงเหลือ" icon="ui-icon-document"
+				action="balancesummary?faces-redirect=true" rendered="#{menu.balanceReport}"/>
+			<p:menuitem value="รายงานสรุปประจำเดือน " icon="ui-icon-document"
+				action="monthlysummary?faces-redirect=true" rendered="#{menu.monthlyReport}"/>
+		</p:submenu>
+		<p:menuitem value="ผู้ดูแลระบบ" icon="ui-icon-gear"
+			action="admin?faces-redirect=true" rendered="#{menu.admin}"/>
+		<p:menuitem value="ออกจากระบบ" icon="ui-icon-power"
+			action="#{login.logout()}" rendered="#{menu.loggedIn}"/>
+	</p:menubar>
+</body>
+</html>

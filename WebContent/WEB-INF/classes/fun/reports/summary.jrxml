@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="summary" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f23e9794-f577-4536-847c-ed36c347afc5">
+	<property name="ireport.zoom" value="3.1384283767210053"/>
+	<property name="ireport.x" value="954"/>
+	<property name="ireport.y" value="16"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="fromDate" class="java.util.Date"/>
+	<parameter name="toDate" class="java.util.Date"/>
+	<parameter name="sumTotal" class="java.math.BigDecimal"/>
+	<parameter name="sumMember" class="java.lang.Integer"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="number" class="java.lang.String"/>
+	<field name="transactionDate" class="java.util.Date"/>
+	<field name="transactionType" class="java.lang.String"/>
+	<field name="transactionAmount" class="java.math.BigDecimal"/>
+	<field name="transactionRemain" class="java.math.BigDecimal"/>
+	<field name="paidForName" class="java.lang.String"/>
+	<field name="paidForNumber" class="java.lang.String"/>
+	<field name="currentBalance" class="java.math.BigDecimal"/>
+	<group name="group1">
+		<groupExpression><![CDATA[$F{number}]]></groupExpression>
+		<groupHeader>
+			<band height="54">
+				<textField>
+					<reportElement uuid="37533770-8c7c-48a1-af38-74aa4190f9ec" isPrintRepeatedValues="false" x="61" y="3" width="50" height="17"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{number}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="2a6c108c-777d-42a7-93f0-173c11bdd314" isPrintRepeatedValues="false" x="61" y="20" width="120" height="17"/>
+					<textElement>
+						<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="74736b13-81f6-47c2-b72a-c161e43139f2" x="1" y="3" width="60" height="17"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[สมาชิกเลขที่:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7c507fed-575d-4278-8133-1709e1cdf67b" x="1" y="20" width="60" height="17"/>
+					<textElement>
+						<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[ชื่อ - นามสกุล:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="74736b13-81f6-47c2-b72a-c161e43139f2" x="1" y="37" width="75" height="17"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="7" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[วันที่เกิดรายการ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="74736b13-81f6-47c2-b72a-c161e43139f2" x="76" y="37" width="75" height="17"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="7" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[ประเภทรายการ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="74736b13-81f6-47c2-b72a-c161e43139f2" x="151" y="37" width="100" height="17"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="7" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[จำนวนเงิน]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="74736b13-81f6-47c2-b72a-c161e43139f2" x="251" y="37" width="100" height="17"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="7" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[จำนวนเงินคงเหลือ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="74736b13-81f6-47c2-b72a-c161e43139f2" x="349" y="37" width="120" height="17"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="7" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[จ่ายให้สมาชิก]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="74736b13-81f6-47c2-b72a-c161e43139f2" x="469" y="37" width="75" height="17"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="7" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[เลขที่สมาชิก]]></text>
+				</staticText>
+				<line>
+					<reportElement uuid="cba56ab3-c9ce-4cf5-800b-6cb145104a4e" x="0" y="36" width="542" height="1"/>
+				</line>
+				<line>
+					<reportElement uuid="502ab1b6-c3e3-4030-a730-75e7f9f1e33f" x="0" y="53" width="542" height="1"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="30">
+				<line>
+					<reportElement uuid="cba56ab3-c9ce-4cf5-800b-6cb145104a4e" x="1" y="20" width="542" height="1"/>
+				</line>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="566c5d3b-951a-4976-addf-13f5a4d9134b" x="474" y="1" width="50" height="20" forecolor="#FF0000">
+						<printWhenExpression><![CDATA[$F{currentBalance}.doubleValue()<0?Boolean.TRUE:Boolean.FALSE]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{currentBalance}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="74736b13-81f6-47c2-b72a-c161e43139f2" x="409" y="1" width="65" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[จำนวนเงินคงเหลือ:]]></text>
+				</staticText>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="566c5d3b-951a-4976-addf-13f5a4d9134b" x="474" y="1" width="50" height="20" forecolor="#008000">
+						<printWhenExpression><![CDATA[$F{currentBalance}.doubleValue()>=0?Boolean.TRUE:Boolean.FALSE]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{currentBalance}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="37533770-8c7c-48a1-af38-74aa4190f9ec" isPrintRepeatedValues="false" x="494" y="50" width="61" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{toDate}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="37533770-8c7c-48a1-af38-74aa4190f9ec" isPrintRepeatedValues="false" x="494" y="30" width="61" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fromDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f0889a63-2820-4b4b-8700-0c8c20cea8f6" x="425" y="50" width="65" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ถึง]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f0889a63-2820-4b4b-8700-0c8c20cea8f6" x="425" y="30" width="65" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ระหว่างวันที่]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f0889a63-2820-4b4b-8700-0c8c20cea8f6" x="187" y="10" width="180" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="15" isBold="true" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[รายงานสรุปยอดคงเหลือ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement uuid="8159a1ed-93b8-43af-9281-3f68dc1fd952" x="257" y="0" width="70" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{transactionRemain}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="50337a1a-62c2-42a9-976b-86a93174731c" x="1" y="19" width="542" height="1"/>
+			</line>
+			<textField pattern="dd/M/yyyy">
+				<reportElement uuid="5bfeca5e-69ab-43aa-93c3-0d9297b21e60" x="1" y="0" width="75" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{transactionDate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="cc577072-bab3-433c-8a38-946ea94071d0" x="371" y="0" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{paidForName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="a0ddf562-7e60-4d94-9ac8-839bec97aa4c" x="474" y="0" width="50" height="20" forecolor="#000000"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{paidForNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3422652f-61f0-4f81-996f-12cf14756757" x="101" y="0" width="40" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{transactionType}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="111a36ca-58d8-418a-a603-8902fb1b5174" x="146" y="0" width="70" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{transactionAmount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="">
+				<reportElement uuid="37533770-8c7c-48a1-af38-74aa4190f9ec" isPrintRepeatedValues="false" x="464" y="0" width="60" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sumMember}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="37533770-8c7c-48a1-af38-74aa4190f9ec" isPrintRepeatedValues="false" x="464" y="20" width="60" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sumTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f0889a63-2820-4b4b-8700-0c8c20cea8f6" x="386" y="0" width="78" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[จำนวนสมาชิก]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f0889a63-2820-4b4b-8700-0c8c20cea8f6" x="386" y="20" width="78" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahomabd.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[จำนวนเงินรวมทั้งหมด]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

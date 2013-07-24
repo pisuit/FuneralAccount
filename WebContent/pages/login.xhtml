@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="mainlayout.xhtml">
+		<ui:define name="content">
+			<p:ajaxStatus onstart="loadingScreen.show()"
+				oncomplete="loadingScreen.hide()" />
+			<p:dialog modal="true" widgetVar="loadingScreen" draggable="false"
+				closable="fasle" showHeader="false" resizable="false">
+				<h:graphicImage  library="images" name="black-ajax-loader.gif"/>
+			</p:dialog>
+			<div style="position: relative; height: 300px;width:320px;margin:0 auto;">
+				<p:panel header="เข้าสู่ระบบ"
+					style="width:320px;font-size:100% !important;position:absolute; top:50%;">
+					<h:panelGrid columns="2" cellpadding="3">
+						<h:outputText value="ชื่อผู้ใช้งาน:" />
+						<p:inputText value="#{login.username}" />
+						<h:outputText value="รหัสผ่าน:" />
+						<p:password value="#{login.password}" />
+					</h:panelGrid>
+					<p:messages autoUpdate="true" />
+					<p:separator />
+					<p:commandButton value="ตกลง" icon="ui-icon-circle-check"
+						action="#{login.login()}" />
+				</p:panel>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

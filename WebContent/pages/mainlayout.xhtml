@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<style type="text/css">
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+
+.ui-widget,.ui-widget .ui-widget {
+	font-size: 90% !important;
+}
+
+.verticaltop td {
+	vertical-align: top;
+}
+.halfsize .ui-column-filter {
+display: block;
+width: 50px;
+margin: auto;
+}
+</style>
+</h:head>
+<body>
+	<h:outputStylesheet library="css" name="facestyle.css" />
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="114">
+			<h:form id="northform">
+				<div class="ui-widget ui-widget-header">
+					<div id="logo">
+						<h1>ระบบทะเบียนฌาปนกิจสงเคราะห์ บวท.</h1>
+					</div>
+				</div>
+				<ui:include src="menu.xhtml" />
+			</h:form>
+		</p:layoutUnit>
+		<p:layoutUnit position="south" size="30" style="text-align:center">
+		<h:panelGroup layout="block"
+				style="width:100%;position:absolute;left:0px;text-align:left">
+					<h:outputText value="Version 1.0 Build 0005" />
+				</h:panelGroup>
+			<h:outputText
+				value="© Copyrights reserved 2012. Developed by ID.IT มีปัญหาการใช้งานกรุณาติดต่อ พท.สท. โทร.8214"
+				style="font-weight:bold" />
+		</p:layoutUnit>
+		<p:layoutUnit position="center" id="center">
+			<h:form id="centerform">
+				<ui:insert name="content" />
+			</h:form>		
+		</p:layoutUnit>
+	</p:layout>
+</body>
+</html>

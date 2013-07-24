@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="mainlayout.xhtml">
+		<ui:define name="content">
+			<p:blockUI block="inputpanelgroup" trigger="btn">
+				<h:outputText value="LOADING" />
+				<h:graphicImage value="../resources/images/ajax-loading.gif" />
+			</p:blockUI>
+			<p:panel header="รายงานสรุปประจำเดือน"
+				style="font-size:100% !important">
+				<p:fieldset legend="กำหนดเงื่อนไขการพิมพ์" toggleable="true"
+					style="font-size:100% !important">
+					<h:panelGroup style="
+					width:100%;float:left" id="inputpanelgroup">
+					<h:panelGrid columns="3" cellpadding="3" id="inputgrid">
+						<h:outputText value="รายงานประจำเดือน:" />
+						<p:selectOneMenu value="#{monthly.selectedMonth}">
+							<f:selectItems value="#{monthly.monthList}" />
+						</p:selectOneMenu>
+						<p:commandButton value="ตกลง" icon="ui-icon-check"
+							action="#{monthly.createDeadList()}" update="printdialog"
+							id="btn" />
+					</h:panelGrid>
+					<p:spacer height="10" />
+					<p:scrollPanel
+						style="width:30%;height:300px;font-size:100% !important"
+						mode="native">
+						<p:dataTable value="#{appMemberList.memberDataModel}" var="member"
+							selection="#{monthly.selectedMembers}" style="width:100%"
+							rowKey="#{member.ID}">
+							<f:facet name="header">
+								<h:outputText value="เลือกสมาชิกเพื่อพิมพ์รายงาน" />
+							</f:facet>
+							<p:column selectionMode="multiple"
+								style="width:18px;text-align:center" />
+							<p:column headerText="เลขที่สมาชิก" style="width:10%"
+								filterBy="#{member.memberNumber}" filterMatchMode="exact" filterStyle="width:50px">
+								<div style="text-align: right">
+									<h:outputText value="#{member.memberNumber}" />
+								</div>
+							</p:column>
+							<p:column headerText="ชื่อ - นามสกุล" filterBy="#{member.name}"
+								style="width:90%" filterMatchMode="contains">
+								<h:outputText value="#{member.name}" />
+							</p:column>
+						</p:dataTable>
+					</p:scrollPanel>
+					</h:panelGroup>
+				</p:fieldset>
+			</p:panel>
+			<p:dialog header="ข้อมูลใบรายงาน" modal="true"
+				widgetVar="printDialog" resizable="false" id="printdialog"
+				style="font-size:100% !important" showEffect="clip" width="900"
+				hideEffect="clip">
+				<h:panelGrid columns="3" cellpadding="3">
+					<h:outputText value="เลขที่เอกสาร:" />
+					<p:inputText value="#{monthly.docNumber}" />
+					<h:outputText />
+					<h:outputText value="วันที่พิมพ์รายงาน:" />
+					<p:calendar value="#{monthly.printDate}" pattern="dd/M/yyyy" />
+					<h:commandLink action="#{monthly.printReport()}"
+						title="พิมพ์รายงาน" target="_blank" style="margin-left:10px"
+						rendered="#{fn:length(monthly.deadMemberModelList) != 0}">
+						<h:graphicImage value="/resources/images/pdf.png" />
+					</h:commandLink>
+				</h:panelGrid>
+				<p:spacer height="10" />
+				<p:dataTable value="#{monthly.deadMemberModelList}" var="member"
+					editable="true" id="memberlist">
+					<f:facet name="header">
+						<h:outputText value="ตารางรายการผู้เสียชีวิต" />
+					</f:facet>
+					<p:column headerText="เลขที่สมาชิกผู้เสียชีวิต" style="width:10%">
+						<div style="text-align: right">
+							<h:outputText value="#{member.deadMemberNumber}" />
+						</div>
+					</p:column>
+					<p:column headerText="ชื่อผู้เสียชีวิต" style="width:20%">
+						<h:outputText value="#{member.deadMemberName}" />
+					</p:column>
+					<p:column headerText="ชื่อสมาชิกสามัญ" style="width:20%">
+						<h:outputText value="#{member.memberName}" />
+					</p:column>
+					<p:column headerText="ความสัมพันธ์" style="width:20%">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{member.relation}" />
+							</f:facet>
+							<f:facet name="input">
+								<div style="text-align: center">
+									<p:inputText value="#{member.relation}"
+										rendered="#{member.memberName != null}" />
+								</div>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="สาเหตุการเสียชีวิต" style="width:23%">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{member.deadCause}" />
+							</f:facet>
+							<f:facet name="input">
+								<div style="text-align: center">
+									<p:inputText value="#{member.deadCause}" />
+								</div>
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column style="width:7%">
+						<p:rowEditor />
+					</p:column>
+				</p:dataTable>
+			</p:dialog>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

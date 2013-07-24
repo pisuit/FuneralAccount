@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="mainlayout.xhtml">
+		<ui:define name="content">
+			<p:growl id="growl" />
+			<p:blockUI block="inputpanel" trigger="savebtn">
+				<h:outputText value="LOADING" />
+				<h:graphicImage value="../resources/images/ajax-loading.gif" />
+			</p:blockUI>
+			<p:blockUI block="inputpanel" trigger="clearbtn">
+				<h:outputText value="LOADING" />
+				<h:graphicImage value="../resources/images/ajax-loading.gif" />
+			</p:blockUI>
+			<p:blockUI block="inputpanel" widgetVar="blockInput">
+				<h:outputText value="LOADING" />
+				<h:graphicImage value="../resources/images/ajax-loading.gif" />
+			</p:blockUI>
+			<p:panel header="ผู้ดูลแระบบ" style="font-size:100% !important">
+				<p:fieldset legend="จัดการข้อมูลผู้ใช้งาน" toggleable="true"
+					style="font-size:100% !important">
+					<p:dataTable style="width:65%;float:left" value="#{admin.userList}"
+						var="user" rows="10" paginator="true"
+						paginatorAlwaysVisible="false" paginatorPosition="bottom"
+						id="userlist" rowIndexVar="index" selection="#{admin.editUser}"
+						selectionMode="single" rowKey="#{user.id}">
+						<p:ajax event="rowSelect" listener="#{admin.setCheckBoxValue()}"
+							update=":centerform:inputgrid, :centerform:btngrid"
+							onstart="blockInput.show()" oncomplete="blockInput.hide()" />
+						<p:column>
+							<div style="text-align: right">
+								<h:outputText value="#{index+1}" />
+							</div>
+						</p:column>
+						<p:column headerText="ชื่อผู้ใช้งาน" style="width:20%">
+							<h:outputText value="#{user.username}" />
+						</p:column>
+						<p:column headerText="ชื่อ" style="width:40%">
+							<h:outputText value="#{user.name}" />
+						</p:column>
+						<p:column headerText="นามสกุล" style="width:40%">
+							<h:outputText value="#{user.surename}" />
+						</p:column>
+					</p:dataTable>
+					<p:panel header="ข้อมูลผู้ใช้"
+						style="width:25%;float:left;margin-left:30px" id="inputpanel">
+						<h:panelGrid columns="2" cellpadding="3" id="inputgrid">
+							<h:outputText value="ชื่อผู้ใช้งาน:" />
+							<p:inputText value="#{admin.editUser.username}"
+								id="inputusername" />
+							<h:outputText value="ชื่อ:" />
+							<p:inputText value="#{admin.editUser.name}" />
+							<h:outputText value="นามสกุล:" />
+							<p:inputText value="#{admin.editUser.surename}" />
+							<h:outputText value="สิทธิการใช้งาน:" />
+							<p:selectManyCheckbox value="#{admin.selectedRole}"
+								layout="pageDirection">
+								<f:selectItems value="#{admin.roleSelectItemList}" var="role"
+									itemValue="#{role}" itemLabel="#{role.value}" />
+							</p:selectManyCheckbox>
+						</h:panelGrid>
+						<p:separator />
+						<h:panelGrid columns="3" cellpadding="3" id="btngrid">
+							<p:commandButton value="บันทึก" icon="ui-icon-disk"
+								update="userlist, inputgrid, growl, btngrid" action="#{admin.saveUser()}"
+								process=":centerform:inputgrid, @this" id="savebtn" />
+							<p:commandButton value="ล้างค่า" icon="ui-icon-refresh"
+								action="#{admin.clearData()}" update="inputgrid, userlist, btngrid"
+								id="clearbtn" process="@this"/>
+							<p:commandButton value="ลบผู้ใช้" icon="ui-icon-trash"
+								action="#{admin.deleteUser()}"
+								update="userlist, inputgrid, btngrid"
+								disabled="#{admin.editUser.id == null}" />
+						</h:panelGrid>
+					</p:panel>
+				</p:fieldset>
+			</p:panel>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>
